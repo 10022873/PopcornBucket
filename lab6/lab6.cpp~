@@ -1,0 +1,149 @@
+/*******************************************************************************
+* File: lab6.cpp                                                               *
+* Project: CMSC202 Lab 6, Spring 2025                                          *
+* Author: [YOUR NAME HERE]                                                     *
+* Date:                                                                        *
+* Email:                                                                       *
+*                                                                              *
+* Makes a todo list using user input, then displays it.                        *
+*******************************************************************************/
+
+#include "PopcornBucket.h"
+#include <vector>
+using namespace std;
+
+// sets BUTTERED = 0, CARAMEL = 1, CHEDDAR = 2
+enum FLAVOR_CODE { BUTTERED, CARAMEL, CHEDDAR };
+
+// To Do:
+// 1. Write PopcornBucket.cpp and make sure it compiles (make PopcornBucket.o).
+// 2. Write FillPopcornOrder below.
+// 3. Write DisplayWithoutIterator below.
+// 4. Write void DisplayWithIterator below
+
+// Write FillPopcornOrder here:
+void FillPopcornOrder(vector<PopcornBucket> &popcornOrder) {
+  // Declare variables to hold number of customers, flavors, and name
+   int numCustomers;
+    string name;
+    int flavor;
+
+    // Ask the user for the number of customers
+    cout << "How many customers are ordering popcorn? ";
+    cin >> numCustomers;
+
+    // Clear the input buffer
+    cin.ignore(256, '\n');
+
+    // Iterate through the number of customers
+    for (int i = 0; i < numCustomers; i++) {
+        cout << "Enter the name for customer " << i + 1 << ": ";
+        getline(cin, name);
+
+        cout << "Enter the flavor code for " << name << " (0 = Buttered, 1 = Caramel, 2 = Cheddar): ";
+        cin >> flavor;
+
+        // Clear the input buffer
+        cin.ignore(256, '\n');
+
+        // Create a PopcornBucket object and add it to the vector
+        PopcornBucket bucket(name, flavor);
+        popcornOrder.push_back(bucket);
+    }
+  
+  // You may have to use:
+  //   if(cin.peek() == '\n')
+  //      cin.ignore(256, '\n');
+  // to clear the buffer.
+  
+} // End of FillPopcornOrder
+
+
+// You may use this code for the DisplayWithoutIterator
+// and DisplayWithIterator use this code
+/*
+  switch (FILL THIS IN) {
+  case BUTTERED:
+    cout << "- Buttered & Salted for ";
+    break;
+  case CARAMEL:
+    cout << "- Crazy Caramel for ";
+    break;
+  case CHEDDAR:
+    cout << "- Cheddar Chaos for ;
+    break;
+  default:
+    cout << "- unknown flavor for ";
+    break;
+  }
+*/
+
+// Please write DisplayWithoutIterator.
+// Display the number of popcorn buckets in the order.
+// For each bucket, display the flavor and name.
+// Use a switch statement to display the flavor (provided).
+// Don't forget to display the name as well.
+void DisplayWithoutIterator(vector<PopcornBucket> &popcornOrder) {
+   cout << "Number of popcorn buckets in the order: " << popcornOrder.size() << endl;
+
+    for (size_t i = 0; i < popcornOrder.size(); i++) {
+        switch (popcornOrder[i].GetFlavor()) {
+            case BUTTERED:
+                cout << "- Buttered & Salted for ";
+                break;
+            case CARAMEL:
+                cout << "- Crazy Caramel for ";
+                break;
+            case CHEDDAR:
+                cout << "- Cheddar Chaos for ";
+                break;
+            default:
+                cout << "- unknown flavor for ";
+                break;
+        }
+        cout << popcornOrder[i].GetName() << endl;
+    }
+}
+
+// Please write DisplayWithIterator.
+// This function is the same as the one above, but uses an iterator to display
+// the todo list.
+void DisplayWithIterator(vector<PopcornBucket> &popcornOrder) {
+  cout << "Number of popcorn buckets in the order: " << popcornOrder.size() << endl;
+
+    for ((size_t i = 0; i < popcornOrder.size(); i++) {
+        switch (i->GetFlavor()) {
+            case BUTTERED:
+                cout << "- Buttered & Salted for ";
+                break;
+            case CARAMEL:
+                cout << "- Crazy Caramel for ";
+                break;
+            case CHEDDAR:
+                cout << "- Cheddar Chaos for ";
+                break;
+            default:
+                cout << "- unknown flavor for ";
+                break;
+        }
+        cout << ii->GetName() << endl;
+    }
+}
+
+
+
+// Main
+// Provided.
+
+int main() {
+  vector<PopcornBucket> popcornOrder; //Creates an empty vector
+  FillPopcornOrder(popcornOrder); //Populates popcornOrder
+  
+  cout << "Displaying Popcorn Order without iterator:" << endl;
+  DisplayWithoutIterator(popcornOrder); //Displays information using loop
+  cout << endl << "Displaying Popcorn Order with iterator:" << endl;
+  DisplayWithIterator(popcornOrder); //Displays information using iterators
+
+  cout << endl << "Enjoy the movie!" << endl;
+  return 0;
+}
